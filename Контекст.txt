@@ -1,0 +1,10 @@
+private static LibraryEntities _context; // поле контекста данных
+
+public static LibraryEntities GetContext() //метод получения контекста
+        {
+            if(_context == null)
+            {
+                _context = new LibraryEntities();
+            }
+            return _context;
+        }

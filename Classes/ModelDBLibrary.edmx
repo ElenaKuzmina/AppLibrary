@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище LibraryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="id_author" />
+          </Key>
+          <Property Name="id_author" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="NameAftor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="id_book" />
+          </Key>
+          <Property Name="id_book" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Kolvo" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="id_publishing" Type="int" />
+          <Property Name="id_author" Type="int" />
+          <Property Name="id_Genre" Type="int" />
+          <Property Name="id_Categories" Type="int" />
+          <Property Name="id_Format" Type="int" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="id_Categories" />
+          </Key>
+          <Property Name="id_Categories" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameCat" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Citys">
+          <Key>
+            <PropertyRef Name="id_citys" />
+          </Key>
+          <Property Name="id_citys" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameCity" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Format">
+          <Key>
+            <PropertyRef Name="id_Format" />
+          </Key>
+          <Property Name="id_Format" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameFor" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="id_Genre" />
+          </Key>
+          <Property Name="id_Genre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameGe" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Publishing">
+          <Key>
+            <PropertyRef Name="id_publishing" />
+          </Key>
+          <Property Name="id_publishing" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NamePub" Type="nvarchar" MaxLength="50" />
+          <Property Name="id_citys" Type="int" />
+        </EntityType>
+        <Association Name="FK_Books_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="id_author" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="id_Categories" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_Categories" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Format">
+          <End Role="Format" Type="Self.Format" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Format">
+              <PropertyRef Name="id_Format" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_Format" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="id_Genre" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Publishing">
+          <End Role="Publishing" Type="Self.Publishing" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishing">
+              <PropertyRef Name="id_publishing" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_publishing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publishing_Citys">
+          <End Role="Citys" Type="Self.Citys" Multiplicity="0..1" />
+          <End Role="Publishing" Type="Self.Publishing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Citys">
+              <PropertyRef Name="id_citys" />
+            </Principal>
+            <Dependent Role="Publishing">
+              <PropertyRef Name="id_citys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LibraryModelContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Citys" EntityType="Self.Citys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Format" EntityType="Self.Format" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publishing" EntityType="Self.Publishing" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Books_Author" Association="Self.FK_Books_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Categories" Association="Self.FK_Books_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Format" Association="Self.FK_Books_Format">
+            <End Role="Format" EntitySet="Format" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Genre" Association="Self.FK_Books_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Publishing" Association="Self.FK_Books_Publishing">
+            <End Role="Publishing" EntitySet="Publishing" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publishing_Citys" Association="Self.FK_Publishing_Citys">
+            <End Role="Citys" EntitySet="Citys" />
+            <End Role="Publishing" EntitySet="Publishing" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="id_author" />
+          </Key>
+          <Property Name="id_author" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameAftor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Author" FromRole="Author" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="id_book" />
+          </Key>
+          <Property Name="id_book" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Kolvo" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="id_publishing" Type="Int32" />
+          <Property Name="id_author" Type="Int32" />
+          <Property Name="id_Genre" Type="Int32" />
+          <Property Name="id_Categories" Type="Int32" />
+          <Property Name="id_Format" Type="Int32" />
+          <NavigationProperty Name="Author" Relationship="Self.FK_Books_Author" FromRole="Books" ToRole="Author" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Books_Categories" FromRole="Books" ToRole="Categories" />
+          <NavigationProperty Name="Format" Relationship="Self.FK_Books_Format" FromRole="Books" ToRole="Format" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_Books_Genre" FromRole="Books" ToRole="Genre" />
+          <NavigationProperty Name="Publishing" Relationship="Self.FK_Books_Publishing" FromRole="Books" ToRole="Publishing" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="id_Categories" />
+          </Key>
+          <Property Name="id_Categories" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameCat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Categories" FromRole="Categories" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Citys">
+          <Key>
+            <PropertyRef Name="id_citys" />
+          </Key>
+          <Property Name="id_citys" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Publishing" Relationship="Self.FK_Publishing_Citys" FromRole="Citys" ToRole="Publishing" />
+        </EntityType>
+        <EntityType Name="Format">
+          <Key>
+            <PropertyRef Name="id_Format" />
+          </Key>
+          <Property Name="id_Format" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameFor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Format" FromRole="Format" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="id_Genre" />
+          </Key>
+          <Property Name="id_Genre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameGe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Genre" FromRole="Genre" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Publishing">
+          <Key>
+            <PropertyRef Name="id_publishing" />
+          </Key>
+          <Property Name="id_publishing" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NamePub" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_citys" Type="Int32" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Publishing" FromRole="Publishing" ToRole="Books" />
+          <NavigationProperty Name="Citys" Relationship="Self.FK_Publishing_Citys" FromRole="Publishing" ToRole="Citys" />
+        </EntityType>
+        <Association Name="FK_Books_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="id_author" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="id_Categories" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_Categories" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Format">
+          <End Role="Format" Type="Self.Format" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Format">
+              <PropertyRef Name="id_Format" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_Format" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="id_Genre" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Publishing">
+          <End Role="Publishing" Type="Self.Publishing" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishing">
+              <PropertyRef Name="id_publishing" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="id_publishing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publishing_Citys">
+          <End Role="Citys" Type="Self.Citys" Multiplicity="0..1" />
+          <End Role="Publishing" Type="Self.Publishing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Citys">
+              <PropertyRef Name="id_citys" />
+            </Principal>
+            <Dependent Role="Publishing">
+              <PropertyRef Name="id_citys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Author" EntityType="Self.Author" />
+          <EntitySet Name="Books" EntityType="Self.Books" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Citys" EntityType="Self.Citys" />
+          <EntitySet Name="Format" EntityType="Self.Format" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" />
+          <EntitySet Name="Publishing" EntityType="Self.Publishing" />
+          <AssociationSet Name="FK_Books_Author" Association="Self.FK_Books_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Categories" Association="Self.FK_Books_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Format" Association="Self.FK_Books_Format">
+            <End Role="Format" EntitySet="Format" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Genre" Association="Self.FK_Books_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Publishing" Association="Self.FK_Books_Publishing">
+            <End Role="Publishing" EntitySet="Publishing" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publishing_Citys" Association="Self.FK_Publishing_Citys">
+            <End Role="Citys" EntitySet="Citys" />
+            <End Role="Publishing" EntitySet="Publishing" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LibraryModelContainer" CdmEntityContainer="LibraryEntities">
+          <EntitySetMapping Name="Author">
+            <EntityTypeMapping TypeName="LibraryModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="id_author" ColumnName="id_author" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="NameAftor" ColumnName="NameAftor" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="LibraryModel.Books">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="id_book" ColumnName="id_book" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Kolvo" ColumnName="Kolvo" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="id_publishing" ColumnName="id_publishing" />
+                <ScalarProperty Name="id_author" ColumnName="id_author" />
+                <ScalarProperty Name="id_Genre" ColumnName="id_Genre" />
+                <ScalarProperty Name="id_Categories" ColumnName="id_Categories" />
+                <ScalarProperty Name="id_Format" ColumnName="id_Format" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="LibraryModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="id_Categories" ColumnName="id_Categories" />
+                <ScalarProperty Name="NameCat" ColumnName="NameCat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Citys">
+            <EntityTypeMapping TypeName="LibraryModel.Citys">
+              <MappingFragment StoreEntitySet="Citys">
+                <ScalarProperty Name="id_citys" ColumnName="id_citys" />
+                <ScalarProperty Name="NameCity" ColumnName="NameCity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Format">
+            <EntityTypeMapping TypeName="LibraryModel.Format">
+              <MappingFragment StoreEntitySet="Format">
+                <ScalarProperty Name="id_Format" ColumnName="id_Format" />
+                <ScalarProperty Name="NameFor" ColumnName="NameFor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genre">
+            <EntityTypeMapping TypeName="LibraryModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="id_Genre" ColumnName="id_Genre" />
+                <ScalarProperty Name="NameGe" ColumnName="NameGe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishing">
+            <EntityTypeMapping TypeName="LibraryModel.Publishing">
+              <MappingFragment StoreEntitySet="Publishing">
+                <ScalarProperty Name="id_publishing" ColumnName="id_publishing" />
+                <ScalarProperty Name="NamePub" ColumnName="NamePub" />
+                <ScalarProperty Name="id_citys" ColumnName="id_citys" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
