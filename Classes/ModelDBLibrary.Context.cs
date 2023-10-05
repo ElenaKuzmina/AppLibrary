@@ -15,20 +15,19 @@ namespace AppLibrary.Classes
     
     public partial class LibraryEntities : DbContext
     {
-        private static LibraryEntities _context; // поле контекста данных
+        private static LibraryEntities _context;
+
+        public static LibraryEntities GetContext()
+        {
+            if (_context == null)
+                _context = new LibraryEntities();
+            return _context;
+        }
         public LibraryEntities()
             : base("name=LibraryEntities")
         {
         }
     
-        public static LibraryEntities GetContext() //метод получения контекста
-        {
-            if(_context == null)
-            
-                _context = new LibraryEntities();
-            
-            return _context;
-        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

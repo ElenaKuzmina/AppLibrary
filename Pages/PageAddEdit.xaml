@@ -16,56 +16,65 @@
                 <TextBlock Text="Название книги"
                            Margin="5" Width="200"/>
                 <TextBox Name="TxtNameBook" Width="150"
-                         Margin="5"/>
+                         Margin="5"
+                         Text="{Binding Name}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock Text="Количество"
                            Margin="5" Width="200"/>
                 <TextBox Name="TxtCountBook" Width="150"
-                         Margin="5"/>
+                         Margin="5"
+                         Text="{Binding Kolvo}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
-                <TextBlock Text="Год издания"
+                <TextBlock Text="Дата издания"
                            Margin="5" Width="200"/>
-                <TextBox Name="TxtYearBook" Width="150"
-                         Margin="5"/>
+                <DatePicker Name="DtpPublishing" 
+                    DisplayDate="{Binding DatePublishing}"/>
+                <!--<TextBox Name="TxtYearBook" Width="150"
+                         Margin="5"/>-->
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock Text="Издательство"
                            Margin="5" Width="200"/>
                 <ComboBox Name="CmbPublic" Width="150" Height="30"
-                         Margin="5"/>
+                         Margin="5"
+                          SelectedValue="{Binding id_publishing}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock Text="Автор"
                            Margin="5" Width="200"/>
                 <ComboBox Name="CmbAuthor" Width="150" Height="30"
-                         Margin="5"/>
+                         Margin="5"
+                          SelectedValue ="{Binding id_author}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock Text="Жанр"
                            Margin="5" Width="200"/>
                 <ComboBox Name="CmbGenre" Width="150" Height="30"
-                         Margin="5"/>
+                         Margin="5"
+                          SelectedValue="{Binding id_Genre}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock Text="Категория"
                            Margin="5" Width="200"/>
                 <ComboBox Name="CmbCategory" Width="150" Height="30"
-                         Margin="5"/>
+                         Margin="5"
+                          SelectedValue="{Binding id_Categories}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock Text="Формат"
                            Margin="5" Width="200"/>
                 <ComboBox Name="CmbFormat" Width="150" Height="30"
-                         Margin="5"/>
+                         Margin="5"
+                          SelectedValue="{Binding id_Format}"/>
             </StackPanel>
             <Button Content="Сохранить"
                     Name="BtnSave"

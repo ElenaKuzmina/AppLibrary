@@ -23,6 +23,7 @@ namespace AppLibrary.Classes
         public Nullable<int> id_Genre { get; set; }
         public Nullable<int> id_Categories { get; set; }
         public Nullable<int> id_Format { get; set; }
+        public Nullable<System.DateTime> DatePublishing { get; set; }
     
         public virtual Author Author { get; set; }
         public virtual Categories Categories { get; set; }

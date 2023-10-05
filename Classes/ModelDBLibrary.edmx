@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище LibraryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище LibraryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="id_author" />
@@ -28,6 +28,7 @@
           <Property Name="id_Genre" Type="int" />
           <Property Name="id_Categories" Type="int" />
           <Property Name="id_Format" Type="int" />
+          <Property Name="DatePublishing" Type="date" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -65,66 +66,6 @@
           <Property Name="NamePub" Type="nvarchar" MaxLength="50" />
           <Property Name="id_citys" Type="int" />
         </EntityType>
-        <Association Name="FK_Books_Author">
-          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Author">
-              <PropertyRef Name="id_author" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="id_author" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Books_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="id_Categories" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="id_Categories" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Books_Format">
-          <End Role="Format" Type="Self.Format" Multiplicity="0..1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Format">
-              <PropertyRef Name="id_Format" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="id_Format" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Books_Genre">
-          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Genre">
-              <PropertyRef Name="id_Genre" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="id_Genre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Books_Publishing">
-          <End Role="Publishing" Type="Self.Publishing" Multiplicity="0..1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Publishing">
-              <PropertyRef Name="id_publishing" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="id_publishing" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Publishing_Citys">
           <End Role="Citys" Type="Self.Citys" Multiplicity="0..1" />
           <End Role="Publishing" Type="Self.Publishing" Multiplicity="*" />
@@ -145,33 +86,12 @@
           <EntitySet Name="Format" EntityType="Self.Format" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Publishing" EntityType="Self.Publishing" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Books_Author" Association="Self.FK_Books_Author">
-            <End Role="Author" EntitySet="Author" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Books_Categories" Association="Self.FK_Books_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Books_Format" Association="Self.FK_Books_Format">
-            <End Role="Format" EntitySet="Format" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Books_Genre" Association="Self.FK_Books_Genre">
-            <End Role="Genre" EntitySet="Genre" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Books_Publishing" Association="Self.FK_Books_Publishing">
-            <End Role="Publishing" EntitySet="Publishing" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
           <AssociationSet Name="FK_Publishing_Citys" Association="Self.FK_Publishing_Citys">
             <End Role="Citys" EntitySet="Citys" />
             <End Role="Publishing" EntitySet="Publishing" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -204,6 +124,7 @@
           <NavigationProperty Name="Format" Relationship="Self.FK_Books_Format" FromRole="Books" ToRole="Format" />
           <NavigationProperty Name="Genre" Relationship="Self.FK_Books_Genre" FromRole="Books" ToRole="Genre" />
           <NavigationProperty Name="Publishing" Relationship="Self.FK_Books_Publishing" FromRole="Books" ToRole="Publishing" />
+          <Property Name="DatePublishing" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -372,6 +293,7 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="LibraryModel.Books">
               <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="DatePublishing" ColumnName="DatePublishing" />
                 <ScalarProperty Name="id_book" ColumnName="id_book" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Kolvo" ColumnName="Kolvo" />

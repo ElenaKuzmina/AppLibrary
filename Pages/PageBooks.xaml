@@ -30,6 +30,17 @@
                 <DataGridTextColumn
                      Header="Жанр" Width="*"
                      Binding="{Binding Genre.NameGe}"/>
+                <DataGridTemplateColumn
+                    Header="Действия"
+                    Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="BtnEdit"
+                                    Click="BtnEdit_Click"
+                                    Content="Редактировать"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
             
         </DataGrid>
@@ -56,6 +67,10 @@
                     Content="Добавление"
                     Margin="5"
                     Click="BtnAdd_Click"/>
+            <Button Name="BtnDelete"
+                    Content="Удаление"
+                    Margin="5"
+                    Click="BtnDelete_Click"/>
         </StackPanel>
     </Grid>
 </Page>

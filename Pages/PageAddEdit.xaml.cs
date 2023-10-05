@@ -21,7 +21,8 @@ namespace AppLibrary.Pages
     /// </summary>
     public partial class PageAddEdit : Page
     {
-        public PageAddEdit()
+        Books _currentBook  = new Books(); 
+        public PageAddEdit(Books booklocal)
         {
             InitializeComponent();
             CmbPublic.ItemsSource = LibraryEntities.GetContext().Publishing.ToList();
@@ -43,23 +44,19 @@ namespace AppLibrary.Pages
             CmbFormat.ItemsSource = LibraryEntities.GetContext().Format.ToList();
             CmbFormat.SelectedValuePath = "id_Format";
             CmbFormat.DisplayMemberPath = "NameFor";
+
+            if (booklocal != null)
+                _currentBook = booklocal;
+            //создаем контекст
+            DataContext = _currentBook;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-                     
-             Books book = new Books
-            { Name = TxtNameBook.Text,
-              Kolvo = int.Parse(TxtCountBook.Text),
-              Year = int.Parse(TxtYearBook.Text),
-              id_publishing = int.Parse(CmbPublic.SelectedValue.ToString()),
-              id_author = int.Parse (CmbAuthor.SelectedValue.ToString()),
-              id_Categories = int.Parse(CmbCategory.SelectedValue.ToString()),
-              id_Genre = int.Parse(CmbGenre.SelectedValue.ToString()),
-              id_Format = int.Parse(CmbFormat.SelectedValue.ToString())
-            }
-            ;
-            LibraryEntities.GetContext().Books.Add(book);
+            if (_currentBook.id_book == 0)
+
+                LibraryEntities.GetContext().Books.Add(_currentBook);
+            
             LibraryEntities.GetContext().SaveChanges();
 
             MessageBoxResult boxResult = MessageBox.Show("Данные добавлены. Добавить еще?",
@@ -68,7 +65,7 @@ namespace AppLibrary.Pages
             {
                 TxtNameBook.Clear();
                 TxtCountBook.Clear();
-                TxtYearBook.Clear();
+                //TxtYearBook.Clear();
                 TxtNameBook.Focus();
             }
             else

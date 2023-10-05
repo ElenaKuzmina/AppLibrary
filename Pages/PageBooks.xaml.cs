@@ -70,7 +70,36 @@ namespace AppLibrary.Pages
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Classes.ClassFrame.frmObj.Navigate(new Pages.PageAddEdit());
+            //добавление 
+            Classes.ClassFrame.frmObj.Navigate(new Pages.PageAddEdit(null));
+        }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            //редактирование
+            Classes.ClassFrame.frmObj.Navigate(
+                new Pages.PageAddEdit((sender as Button).DataContext as Books ));
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            //удаление
+            var lstForDelete = dtgBooks.SelectedItems.Cast<Books>().ToList();
+            if (MessageBox.Show($"Удалить {lstForDelete.Count()} записей?",
+                "Внимание", MessageBoxButton.YesNo, 
+                MessageBoxImage.Question) == MessageBoxResult.Yes)
+
+                try
+                {
+                    LibraryEntities.GetContext().Books.RemoveRange(lstForDelete);
+                    LibraryEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Данные удалены");
+                    dtgBooks.ItemsSource = LibraryEntities.GetContext().Books.ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
         }
     }
 }
